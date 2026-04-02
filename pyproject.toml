@@ -44,3 +44,8 @@ push            = true
 "pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
 "src/frapppe/__init__.py" = ['^__version__ = "{version}"$']
 
+[dependency-groups]
+dev = [
+    "jupyterlab>=4.5.6",
+]
+

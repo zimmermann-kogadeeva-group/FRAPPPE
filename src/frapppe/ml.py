@@ -1,3 +1,12 @@
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import KFold, cross_val_score, train_test_split
+
+from .fluxes import get_flux_ratio
+
+
 def train_rf(fluxes, mdvs, fr_name, fr_nom, fr_denom, test_size=0.3, random_state=42):
     mdv_train, mdv_test, ratios_train, ratios_test = train_test_split(
         mdvs.transpose(),

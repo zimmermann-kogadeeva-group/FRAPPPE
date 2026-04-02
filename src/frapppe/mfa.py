@@ -1,17 +1,10 @@
 import multiprocessing as mp
-import re
 from copy import deepcopy
-from itertools import permutations, product
 
 import hopsy
 import numpy as np
 import pandas as pd
-from freeflux import Metabolite, Model, Reaction
-from sklearn.decomposition import PCA
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.model_selection import KFold, cross_val_score, train_test_split
-from sklearn.preprocessing import StandardScaler
+from freeflux import Model
 from tqdm import tqdm
 
 from .fluxes import get_reconex_fluxes
@@ -46,11 +39,8 @@ class MFA(object):
 
         return lb, ub
 
-    # TODO: replace lb, ub arguments with bounds which is a dictonary of
-    # arguments for make_bounds func, such that sample_fluxes calls make_bounds inside it
     def sample_fluxes(
         self,
-        stoich_matrix,
         n_samples,
         bounds,
         *,
@@ -62,7 +52,11 @@ class MFA(object):
         reconex=None,
         **kwargs,
     ):
-        lb, ub = self.make_bounds(bounds)
+        # We get the vectors of upper and lower bounds
+        lb, ub = self.make_bounds(**bounds)
+
+        # Copied in case it is modified
+        stoich_matrix = self.stoich_matrix.copy()
 
         A = np.concatenate(
             [-np.identity(stoich_matrix.shape[1]), np.identity(stoich_matrix.shape[1])]
@@ -95,7 +89,6 @@ class MFA(object):
         samples = pd.DataFrame(
             samples[0].transpose(),
             index=stoich_matrix.columns,
-            columns=[f"s{i}" for i in range(1, samples.shape[1] + 1)],
         )
         if reconex is not None:
             samples = samples.pipe(get_reconex_fluxes, factor=reconex, seed=seed)
@@ -144,7 +137,6 @@ class MFA(object):
 
         df_freeflux_mdvs = pd.DataFrame(
             [_get_mdv_dict(x) for x in all_mdv_res],
-            index=[f"s{i:03}" for i in range(1, len(all_mdv_res) + 1)],
         ).transpose()
 
         if as_df:
