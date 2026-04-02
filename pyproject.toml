@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frapppe"
+version = "0.0.1"
+requires-python = ">=3.9"
+description = "13C metabolic flux analysis"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    { name = "Bartosz Bartmanski", email = "bartosz.bartmanski@embl.de" }, 
+    { name = "Daniel Torka", email = "daniel.torka@embl.de" }
+]
+
+dependencies = [
+    "hopsy>=1.6.1",
+    "freeflux>=0.3.6",
+    "jax>=0.4",
+    "pandas>=1.5.1",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.13.2",
+    "scikit-learn>=1.6.1",
+]
+
+[project.urls]
+"Homepage" = "https://git.embl.de/grp-zimmermann-kogadeeva/frapppe"
+"Bug tracker" = "https://git.embl.de/grp-zimmermann-kogadeeva/frapppe/issues/"
+
+[tool.isort]
+profile = "black"
+src_paths = ["src", "tests"]
+
+[tool.bumpver]
+current_version = "0.0.1"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "Bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = true
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
+"src/frapppe/__init__.py" = ['^__version__ = "{version}"$']
+

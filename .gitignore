@@ -1,0 +1,22 @@
+
+# Python related
+.venv/
+__pycache__/
+*.egg-info/
+dist/
+build/
+*.spec
+*.log
+.ipynb_checkpoints/
+test.ipynb
+
+# Misc
+worktrees/
+notes.md
+.DS_Store
+.tags
+*~
+*.swp
+.envrc
+
+
