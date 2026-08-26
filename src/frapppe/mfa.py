@@ -101,9 +101,12 @@ class MFA(object):
         return samples
 
     def get_single_sim_result(
-        self, fluxes, target_emus, labeling_strategy, sim_name="sim"
+        self, fluxes, target_emus, labeling_strategy, sim_name="sim", copy=True
     ):
-        model = deepcopy(self.model)
+        if copy:
+            model = deepcopy(self.model)
+        else:
+            model = self.model
 
         sim = model.simulator("ss")
 
@@ -123,10 +126,11 @@ class MFA(object):
         labeling_strategy,
         parallel=None,
         as_df=True,
+        copy=True,
     ):
         if parallel is not None:
             vals = [
-                (fluxes, target_emus, labeling_strategy, sim_name)
+                (fluxes, target_emus, labeling_strategy, sim_name, copy)
                 for sim_name, fluxes in fluxes_df.to_dict().items()
             ]
             pool = mp.Pool(parallel)
@@ -134,7 +138,7 @@ class MFA(object):
         else:
             all_mdv_res = [
                 self.get_single_sim_result(
-                    fluxes, target_emus, labeling_strategy, sim_name
+                    fluxes, target_emus, labeling_strategy, sim_name, copy
                 )
                 for sim_name, fluxes in tqdm(fluxes_df.to_dict().items())
             ]
