@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def reac2array(stoich_mat, reaction):
     return (stoich_mat.columns == reaction).astype(int)
 

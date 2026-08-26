@@ -7,6 +7,7 @@ import pandas as pd
 from freeflux import Model
 from tqdm import tqdm
 
+from .add_constraints import create_add_constraints
 from .fluxes import get_reconex_fluxes
 
 
@@ -67,6 +68,10 @@ class MFA(object):
             stoich_matrix = stoich_matrix[~stoich_matrix.index.isin(ss_exclude)]
 
         if add_constraints is not None:
+            if isinstance(add_constraints, dict):
+                add_constraints = create_add_constraints(
+                    self.stoich_matrix, add_constraints
+                )
             add_constraints_b = add_constraints_b or np.zeros(add_constraints.shape[0])
             A = np.concatenate([A, add_constraints])
             b = np.concatenate([b, add_constraints_b])
@@ -111,9 +116,8 @@ class MFA(object):
         res = sim.simulate()
         return res
 
-    def get_mdv_results(
+    def simulate_mdvs(
         self,
-        model_file,
         fluxes_df,
         target_emus,
         labeling_strategy,

@@ -8,7 +8,7 @@ build/
 *.spec
 *.log
 .ipynb_checkpoints/
-test.ipynb
+dev_tests/
 
 # Misc
 worktrees/
