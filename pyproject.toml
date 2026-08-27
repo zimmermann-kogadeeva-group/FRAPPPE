@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "frapppe"
-version = "0.0.1"
+version = "0.1.0"
 requires-python = ">=3.9"
 description = "13C metabolic flux analysis"
 readme = "README.md"
@@ -42,7 +42,7 @@ profile = "black"
 src_paths = ["src", "tests"]
 
 [tool.bumpver]
-current_version = "0.0.1"
+current_version = "0.1.0"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message  = "Bump version {old_version} -> {new_version}"
 commit          = true
