@@ -58,6 +58,8 @@ frapppe = { workspace = true }
 
 [dependency-groups]
 dev = [
+    "build>=1.4.4",
     "jupyterlab>=4.5.6",
+    "twine>=6.2.0",
 ]
 
