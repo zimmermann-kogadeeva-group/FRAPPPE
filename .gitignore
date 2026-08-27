@@ -10,6 +10,10 @@ build/
 .ipynb_checkpoints/
 dev_tests/
 
+# Documentation build output
+site/
+public/
+
 # Misc
 worktrees/
 notes.md
@@ -18,5 +22,6 @@ notes.md
 *~
 *.swp
 .envrc
+.cache/
 
 

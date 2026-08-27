@@ -1,0 +1,61 @@
+site_name: FRAPPPE
+site_description: 13C Metabolic Flux Analysis via Flux Sampling and Random Forest Prediction
+site_url: https://grp-zimmermann-kogadeeva.pages.embl.de/frapppe/
+repo_url: https://git.embl.de/grp-zimmermann-kogadeeva/frapppe
+repo_name: grp-zimmermann-kogadeeva/frapppe
+
+docs_dir: docs
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+    - toc.integrate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+plugins:
+  - search
+  - mkdocs-jupyter:
+      execute: false
+      include_source: true
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: numpy
+            show_root_heading: true
+            show_source: true
+            members_order: source
+            separate_signature: true
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+
+nav:
+  - Home: index.md
+  - Example: example.ipynb
+  - API Reference: api.md

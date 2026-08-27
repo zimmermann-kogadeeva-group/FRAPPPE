@@ -24,6 +24,15 @@ dependencies = [
     "scikit-learn>=1.6.1",
 ]
 
+[project.optional-dependencies]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocs-jupyter>=0.25",
+    "mkdocstrings[python]>=0.26",
+    "black>=25.1.0"
+]
+
 [project.urls]
 "Homepage" = "https://git.embl.de/grp-zimmermann-kogadeeva/frapppe"
 "Bug tracker" = "https://git.embl.de/grp-zimmermann-kogadeeva/frapppe/issues/"
@@ -43,6 +52,9 @@ push            = true
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['current_version = "{version}"', 'version = "{version}"']
 "src/frapppe/__init__.py" = ['^__version__ = "{version}"$']
+
+[tool.uv.sources]
+frapppe = { workspace = true }
 
 [dependency-groups]
 dev = [
